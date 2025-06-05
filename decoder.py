@@ -18,8 +18,8 @@ async def worker(id_gen, session, results, seen_ids, done_event):
         try:
             data = await fetch_fragment(session, id_)
             results[data["index"]] = data["text"]
-            indices = sorted(results.keys())
-            if indices == list(range(len(indices))):
+            indexes = sorted(results.keys())
+            if indexes == list(range(len(indexes))):
                 done_event.set()
         except (aiohttp.ClientError, asyncio.TimeoutError) as e:
             print(f"Error fetching ID {id_}: {e}")

@@ -9,12 +9,9 @@ async def fetch_fragment(session, id_):
     async with session.get(f"{URL}{id_}") as resp:
         return await resp.json()
 
-async def worker(id_gen, session, results, seen_ids, done_event):
+async def worker(id_gen, session, results, done_event):
     while not done_event.is_set():
         id_ = next(id_gen)
-        if id_ in seen_ids:
-            continue
-        seen_ids.add(id_)
         try:
             data = await fetch_fragment(session, id_)
             results[data["index"]] = data["text"]
@@ -33,14 +30,13 @@ def id_generator():
 async def main():
     start = perf_counter()
     results = {}
-    seen_ids = set()
     done_event = asyncio.Event()
     id_gen = id_generator()
 
     async with aiohttp.ClientSession() as session:
         tasks = [
-            asyncio.create_task(worker(id_gen, session, results, seen_ids, done_event))
-            for _ in range(20)
+            asyncio.create_task(worker(id_gen, session, results, done_event))
+            for _ in range(30)
         ]
         await done_event.wait()
         for task in tasks:

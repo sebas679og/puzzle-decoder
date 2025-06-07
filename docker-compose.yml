@@ -1,0 +1,7 @@
+services:
+  server:
+    image: ifajardov/puzzle-server
+    restart: always
+    ports:
+      - 8080:8080
+

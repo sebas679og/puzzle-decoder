@@ -30,7 +30,7 @@ uv venv --python 3.13
 source .venv/bin/activate
 
 # Install project dependencies
-uv sync
+uv sync --locked
 ```
 
 ### 2. Start Server

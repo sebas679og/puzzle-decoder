@@ -8,6 +8,7 @@ The goal is to reconstruct a hidden message from multiple HTTP fragments that co
 
 ## ⚙️ Requirements
 
+- uv
 - Python **3.13**
 - Docker
 
@@ -15,10 +16,21 @@ The goal is to reconstruct a hidden message from multiple HTTP fragments that co
 
 ### 1. Install Dependencies
 
+First, we need to install **uv**, a Python dependency manager from Astral that allows us to manage dependencies and run files in an isolated virtual environment, separate from the global Python installation.
+
+**Install uv:** Follow the installation guide at [docs.astral.sh/uv](https://docs.astral.sh/uv/getting-started/installation/#installation-methods)
+
+Once uv is installed, run the following commands:
+
 ```bash
-python3.13 -m venv .venv
+# Create a virtual environment with Python 3.13
+uv venv --python 3.13
+
+# Activate the virtual environment
 source .venv/bin/activate
-pip install -r requirements.txt
+
+# Install project dependencies
+uv sync
 ```
 
 ### 2. Start Server
@@ -30,7 +42,7 @@ docker run -p 8080:8080 ifajardov/puzzle-server
 ### 3. Run Decoder
 
 ```bash
-python decoder.py
+uv run decoder.py
 ```
 
 ## 🧠 Strategy

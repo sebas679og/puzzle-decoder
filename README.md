@@ -49,8 +49,9 @@ uv run decoder.py
 
 The solution uses **multiple workers running at the same time** to fetch fragments quickly:
 
-- **20 workers** fetch different fragments simultaneously
+- **30 workers** fetch different fragments simultaneously
 - Each worker tries different fragment IDs
+- a separate worker is in charge of verifying when the puzzle is complete.
 - When all pieces are found, the program stops and shows the message
 - Uses Python's `asyncio` for speed
 

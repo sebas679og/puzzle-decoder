@@ -1,0 +1,9 @@
+[project]
+name = "puzzle-decoder"
+version = "0.1.0"
+description = "program that connects to a puzzle fragment server, finds the pieces of a fixed puzzle and reassembles it in the correct order as quickly as possible."
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "aiohttp>=3.12.11",
+]

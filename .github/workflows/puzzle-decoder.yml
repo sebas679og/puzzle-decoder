@@ -31,14 +31,8 @@ jobs:
       run: |
         docker compose up --build -d
 
-    - name: Wait for server
-      run: |
-        timeout 30 bash -c '
-          until curl -fsS http://localhost:8080 >/dev/null 2>&1
-          do
-            sleep 1
-          done
-        '
+    - name: Wait a few seconds
+      run: sleep 5
 
     - name: Run decoder
       run: uv run decoder.py

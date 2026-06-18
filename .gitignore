@@ -7,5 +7,7 @@ wheels/
 *.egg-info
 .vscode/
 
+.idea/
+
 # Virtual environments
 .venv

@@ -9,7 +9,7 @@ The goal is to reconstruct a hidden message from multiple HTTP fragments that co
 ## ⚙️ Requirements
 
 - uv
-- Python **3.13**
+- Python **3.14**
 - Docker
 
 ## 🛠️ Setup & Run
@@ -23,8 +23,8 @@ First, we need to install **uv**, a Python dependency manager from Astral that a
 Once uv is installed, run the following commands:
 
 ```bash
-# Create a virtual environment with Python 3.13
-uv venv --python 3.13
+# Create a virtual environment with Python 3.14
+uv venv --python 3.14
 
 # Activate the virtual environment
 source .venv/bin/activate

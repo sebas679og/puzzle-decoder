@@ -1,0 +1,52 @@
+name: Puzzle Decoder
+
+on:
+  pull_request:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  decode:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Install uv
+      uses: astral-sh/setup-uv@v6
+
+    - name: Set up Python
+      run: uv python install 3.14
+
+    - name: Create virtual environment
+      run: uv venv --python 3.14
+
+    - name: Install dependencies
+      run: uv sync --locked
+
+    - name: Start puzzle server
+      run: |
+        docker compose up --build -d
+
+    - name: Wait for server
+      run: |
+        timeout 30 bash -c '
+          until curl -fsS http://localhost:8080 >/dev/null 2>&1
+          do
+            sleep 1
+          done
+        '
+
+    - name: Run decoder
+      run: uv run decoder.py
+
+    - name: Show server logs on failure
+      if: failure()
+      run: docker compose logs
+
+    - name: Shutdown services
+      if: always()
+      run: docker compose down -v
